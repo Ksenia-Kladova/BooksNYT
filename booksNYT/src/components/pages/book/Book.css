@@ -1,0 +1,32 @@
+.wrap {
+    display: flex;
+    gap: 20px;
+}
+
+.title {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.author, .publisher {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.description {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.links {
+    list-style: none;
+}
+
+.list-item:not(:last-child) {
+    margin-bottom: 10px;
+}
