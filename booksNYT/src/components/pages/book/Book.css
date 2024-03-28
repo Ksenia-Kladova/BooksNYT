@@ -1,32 +1,38 @@
-.wrap {
+.book__wrap {
     display: flex;
+    align-items: center;
     gap: 20px;
+    padding: 20px;
 }
 
-.title {
+.book__content {
+    text-align: left;
+}
+
+.book__title {
     margin: 0;
     margin-bottom: 10px;
 }
 
-.author, .publisher {
+.book__author, .book__publisher {
     display: block;
     margin-bottom: 10px;
 }
 
-.description {
+.book__description {
     margin: 0;
     margin-bottom: 10px;
 }
 
-.subtitle {
+.book__subtitle {
     margin: 0;
     margin-bottom: 10px;
 }
 
-.links {
+.book__links {
     list-style: none;
 }
 
-.list-item:not(:last-child) {
+.book__list-item:not(:last-child) {
     margin-bottom: 10px;
 }

@@ -9,13 +9,13 @@ export function Item({ children }) {
         <>
             <Link to={`/${children.id}`}>
                 <img src={children.image} alt='book cover' />
-                <div className='wrap'>
-                    <h3 className='title'>{children.title}</h3>
-                    <span className='author'>{children.author}</span>
-                    <span className='publisher'>Publisher: {children.publisher}</span>
-                    <button>Add to favorites</button>
-                </div>
             </Link>
+            <div className='wrap'>
+                <h3 className='title'>{children.title}</h3>
+                <span className='author'>{children.author}</span>
+                <span className='publisher'>Publisher: {children.publisher}</span>
+                <button>Add to favorites</button>
+            </div>
         </>
     )
 }

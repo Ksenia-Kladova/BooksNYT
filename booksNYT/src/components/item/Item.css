@@ -14,4 +14,14 @@
 
 .author {
     margin-bottom: 10px;
+
+}
+
+a {
+    line-height: 0;
+}
+
+image {
+    height: 500px;
+    width: auto;
 }
