@@ -1,0 +1,38 @@
+.book__wrap {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.book__content {
+    text-align: left;
+}
+
+.book__title {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.book__author, .book__publisher {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.book__description {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.book__subtitle {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.book__links {
+    list-style: none;
+}
+
+.book__list-item:not(:last-child) {
+    margin-bottom: 10px;
+}

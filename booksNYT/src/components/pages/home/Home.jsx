@@ -12,7 +12,6 @@ export function Home() {
             .then(data => {
                 const list = data.results.books;
                 const listBooks = list.map(dataFromDTO)
-
                 setBooks(listBooks);
             });
     }, []);

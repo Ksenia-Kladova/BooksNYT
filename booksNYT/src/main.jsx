@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client"
 import App from "./App"
 //import { store } from "./app/store"
 import "./index.css"
+import { BrowserRouter } from "react-router-dom"
 
 const container = document.getElementById("root")
 
@@ -12,9 +13,9 @@ if (container) {
 
   root.render(
     <React.StrictMode>
-
-      <App />
-
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>,
   )
 } else {
