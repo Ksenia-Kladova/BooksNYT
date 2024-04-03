@@ -11,7 +11,7 @@ interface DataGetDTO {
     book_image: string
 }
 
-interface Data {
+export interface Data {
     author: string,
     links: {
         name: string;

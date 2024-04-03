@@ -1,26 +1,26 @@
 import { List } from '../../list/List.jsx'
+import { InputSearch } from '../../input-search/inputSearch'
 import './Home.css';
-import { useEffect, useState } from 'react';
-import { dataFromDTO } from '../../../utils/DTO'
+import PropTypes from 'prop-types';
+import { useGetBooksFictionQuery } from '../../../app/api';
 
 export function Home() {
-    const [books, setBooks] = useState([]);
+    const { data: books, isLoading } = useGetBooksFictionQuery();
 
-    useEffect(() => {
-        fetch(import.meta.env.VITE_FICTION)
-            .then(response => response.json())
-            .then(data => {
-                const list = data.results.books;
-                const listBooks = list.map(dataFromDTO)
-                setBooks(listBooks);
-            });
-    }, []);
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div>
+            <InputSearch />
             <h1>Best Sellers</h1>
             <h2>Fiction</h2>
             <List list={books} />
         </div>
     )
 }
+
+Home.propTypes = {
+    books: PropTypes.array
+};

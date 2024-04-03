@@ -29,3 +29,7 @@ Item.propTypes = {
         publisher: PropTypes.string
     })).isRequired
 };
+
+Item.defaultProps = {
+    author: '',
+}

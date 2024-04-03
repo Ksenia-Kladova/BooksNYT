@@ -20,17 +20,22 @@ type ParamType = {
     id: string;
 }
 
-type BookStateType = BookType | {};
-
-//функционал к кнопке избранное добавлю позднее
-
 function findObj(id: string, arr: BookType[]) {
-    return arr.find(book => book.id === parseInt(id))
+    return arr.find(book => book.id === parseInt(id, 10))
 }
 
 export function Book() {
     const { id } = useParams<ParamType>();
-    const [book, setBook] = useState<BookStateType>({});
+    const bookState: BookType = {
+        id: 0,
+        image: '',
+        title: '',
+        author: '',
+        publisher: '',
+        description: '',
+        links: []
+    };
+    const [book, setBook] = useState<BookType>(bookState);
 
     useEffect(() => {
         fetch(import.meta.env.VITE_FICTION)
@@ -41,19 +46,26 @@ export function Book() {
                 return listBooks;
             })
             .then(arr => {
-                const obj = findObj(id, arr);
-                setBook(obj);
+                const obj = findObj(id!, arr);
+                setBook(obj!);
             });
     }, [id]);
 
     return (
         <div className='book__wrap'>
-            <img src={book.image} alt='book cover' />
-            <div className='book__content'>
+            <img src={book.image} alt='book cover' /><div className='book__content'>
                 <h3 className='book__title'>{book.title}</h3>
                 <span className='book__author'>Author: {book.author}</span>
                 <span className='book__publisher'>Publisher: {book.publisher}</span>
                 <p className='book__description'>Description: {book.description}</p>
+                <h4 className='book__subtitle'> Links to buy the book:</h4>
+                <ul className='book__links'>
+                    {book.links.map(item =>
+                        <li className='book__list-item' key={book.id} >{
+                            <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
+                        }</li>
+                    )}
+                </ul>
                 <button>Add to favorites</button>
             </div>
         </div>)
