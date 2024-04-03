@@ -5,6 +5,7 @@ import App from "./App"
 import { store } from "./app/store/store"
 import "./index.css"
 import { BrowserRouter } from "react-router-dom"
+import './firebase'
 
 const container = document.getElementById("root")
 
