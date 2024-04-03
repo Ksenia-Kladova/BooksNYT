@@ -1,0 +1,40 @@
+.search__title {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.search__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    list-style: none;
+}
+
+.search__item {
+    display: block;
+    padding: 10px;
+    width: 45%;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.search__item a {
+    line-height: normal;
+    text-decoration: none;
+    color: black;
+}
+
+.search__subtitle {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.search__author, .search__publisher {
+    display: block;
+}
+
+.search__author {
+    margin-bottom: 10px;
+}

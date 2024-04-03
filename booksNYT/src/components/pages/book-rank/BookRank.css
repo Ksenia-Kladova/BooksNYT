@@ -1,0 +1,43 @@
+.book-rank {
+    width: 100%;
+}
+
+.book-rank__wrap {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    width: fit-content;
+    text-align: left;
+}
+
+.book-rank__title {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.book-rank__author, .book-rank__publisher {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.book-rank__description, .book-rank__subtitle {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.book-rank__table  {
+    border-collapse: collapse;
+}
+
+.book-rank__table-head td {
+    font-weight: bold;
+}
+
+.book-rank__table td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.book-rank__rank {
+    text-align: center;
+}
