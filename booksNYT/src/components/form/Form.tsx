@@ -16,7 +16,7 @@ export function Form({ title, handleClick }: Props) {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
 
-    const { register, formState: { errors, isValid }, handleSubmit, reset } = useForm<FormData>({ mode: 'onBlur' });
+    const { register, formState: { errors, isValid }, handleSubmit, reset } = useForm<FormData>({ mode: 'all' });
 
     const onSubmit = () => reset();
 
