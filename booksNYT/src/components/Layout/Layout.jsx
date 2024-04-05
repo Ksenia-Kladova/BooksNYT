@@ -1,15 +1,41 @@
 import './Layout.css'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/use-auth';
+import { useAppDispatch } from '../../hooks/redux-hook';
+import { removeUser } from '../../app/store/slices/userSlice';
 
 export function Layout() {
     const navigate = useNavigate();
-    return (
+    const dispatch = useAppDispatch();
+    const { isAuth, email } = useAuth();
+
+
+    return isAuth ? (
         <>
             <header className='header'>
                 <Link to={'/'}>Home</Link>
-                <button onClick={() => navigate('signin', { replace: false })}>Войти</button>
+                <div className='header__wrap'>
+                    <span>{email}</span>
+                    <button>Favorites</button>
+                    <button onClick={() => navigate('history')}>History</button>
+                    <button onClick={() => dispatch(removeUser())} >Sign out</button>
+                </div>
+
             </header>
             <Outlet />
         </>
+    ) : (<>
+        <header className='header'>
+            <Link to={'/'}>Home</Link>
+            <div className='header__wrap'>
+                <span>Гость</span>
+                <button onClick={() => navigate('signup')}>Sign up</button>
+                <button onClick={() => navigate('login')}>Sign in</button>
+            </div>
+
+        </header>
+        <Outlet />
+    </>
+
     )
 }
