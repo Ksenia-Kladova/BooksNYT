@@ -1,8 +1,17 @@
 import { Item } from '../item/Item';
-import PropTypes from 'prop-types';
 import './List.css';
 
-export function List({ list }) {
+type Props = {
+  list: {
+    id: number,
+    image: string,
+    title: string,
+    author: string,
+    publisher: string
+  }[]
+}
+
+export function List({ list }: Props) {
   return (
     <ul className='list'>{
       list.map(item =>
@@ -13,9 +22,3 @@ export function List({ list }) {
     </ul>
   )
 }
-
-List.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    item: PropTypes.objectOf(PropTypes.shape({ id: PropTypes.number }))
-  })).isRequired
-};

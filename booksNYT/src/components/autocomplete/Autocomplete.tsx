@@ -10,11 +10,8 @@ export function Autocomplete({ result }: Props) {
     const { data } = useGetBooksFictionQuery('');
     const navigate = useNavigate();
 
-    if (result === '') return;
-
     const newData = data?.filter(title => {
         return (
-            result &&
             title &&
             title.title &&
             title.title.toLowerCase().trim().includes(result)

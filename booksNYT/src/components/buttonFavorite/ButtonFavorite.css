@@ -1,0 +1,15 @@
+.button-favorite {
+    padding: 5px 10px;
+    border-radius: 6px;
+    background-color: rgb(218, 177, 177);
+    color: black;
+    cursor: pointer;
+}
+
+.button-favorite--add {
+    background-color: rgb(218, 177, 177);
+}
+
+.button-favorite--remove {
+    background-color: rgb(132, 176, 223);
+}

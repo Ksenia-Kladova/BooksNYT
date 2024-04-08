@@ -9,8 +9,8 @@ function processString(str: string): string {
     return substringAfterEquals.replace(/\+/g, ' ');
 }
 
-export function BookRank(): JSX.Element { // JSX.Element надо писать или нет смысла? Или по другому как то?
-    const [searchParams] = useSearchParams(); 
+export function BookRank() {
+    const [searchParams] = useSearchParams();
     const search = searchParams + '';
     const { data: books, isLoading } = useGetSearchResultQuery(search);
     const str: string = processString(search);
@@ -45,8 +45,8 @@ export function BookRank(): JSX.Element { // JSX.Element надо писать �
                         </tr>
                     </thead>
                     <tbody >{
-                        bookRank.ranksHistory.map(item =>
-                            <tr key={crypto.randomUUID()} >
+                        bookRank.ranksHistory.map((item, index) =>
+                            <tr key={index} >
                                 <td >{item.display}</td>
                                 <td className='book-rank__rank'>{item.rank}</td>
                                 <td><time dateTime={item.publishedDate}>{item.publishedDate}</time></td>
