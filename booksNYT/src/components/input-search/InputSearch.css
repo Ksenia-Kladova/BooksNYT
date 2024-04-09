@@ -36,4 +36,5 @@
     background-color: rgb(97, 95, 95);
     color: #fff;
     overflow: hidden;
+    cursor: pointer;
 }

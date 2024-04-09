@@ -16,7 +16,7 @@ export function Layout() {
                 <Link to={'/'}>Home</Link>
                 <div className='header__wrap'>
                     <span>{email}</span>
-                    <button>Favorites</button>
+                    <button onClick={() => navigate('favorite')}>Favorites</button>
                     <button onClick={() => navigate('history')}>History</button>
                     <button onClick={() => dispatch(removeUser())} >Sign out</button>
                 </div>

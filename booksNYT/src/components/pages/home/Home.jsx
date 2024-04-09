@@ -1,4 +1,4 @@
-import { List } from '../../list/List.jsx'
+import { List } from '../../list/List'
 import { InputSearch } from '../../input-search/inputSearch'
 import './Home.css';
 import PropTypes from 'prop-types';
