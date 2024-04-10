@@ -1,5 +1,5 @@
 import './Autocomplete.css';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useGetBooksFictionQuery } from '../../app/api';
 
 type Props = {
@@ -8,7 +8,6 @@ type Props = {
 
 export function Autocomplete({ result }: Props) {
     const { data } = useGetBooksFictionQuery('');
-    const navigate = useNavigate();
 
     const newData = data?.filter(title => {
         return (
@@ -21,9 +20,9 @@ export function Autocomplete({ result }: Props) {
     return (
         <div className='autocomplete'> {
             newData?.map(item =>
-                <div className='autocomplete__item'
-                    key={item.id}
-                    onClick={() => navigate(`/bookrank?title=${item.title}`)}>{item.title}</div>
+                <Link to={`/bookrank?title=${item.title}`}
+                    className='autocomplete__item'
+                    key={item.id}>{item.title}</Link>
             )}
         </div>
     )

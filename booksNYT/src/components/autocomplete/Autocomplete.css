@@ -17,9 +17,13 @@
 }
 
 .autocomplete__item {
+    display: inline-block;
     padding: 5px;
     border: 1px solid black;
     border-radius: 10px;
+    text-decoration: none;
+    line-height: normal;
+    color: black;
     cursor: pointer;
 }
 
