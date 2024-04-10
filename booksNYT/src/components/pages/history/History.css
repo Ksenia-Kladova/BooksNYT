@@ -1,0 +1,16 @@
+.history__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    margin: 0 auto;
+    width: fit-content;
+    list-style: none;
+}
+
+.history__item {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}

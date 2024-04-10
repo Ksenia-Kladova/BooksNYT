@@ -1,32 +1,44 @@
 import './ButtonFavorite.css';
 import { useState } from "react";
-import { useActions } from "../../hooks/actions";
-import { useAppSelector } from "../../hooks/redux-hook";
 import { useAuth } from '../../hooks/use-auth';
 import { useNavigate } from 'react-router-dom';
+import { db } from '../../firebase';
+import { arrayRemove, arrayUnion, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 
 type Props = {
     id: string
 }
 
 export function ButtonFavorite({ id }: Props) {
-    const { favorites } = useAppSelector(state => state.favorites);
-    const [isFav, SetIsFav] = useState(favorites.includes(id));
-    const { addFavorite, removeFavorite } = useActions();
-    const { isAuth } = useAuth();
+    const { isAuth, email } = useAuth();
     const navigate = useNavigate();
+    const [isFav, SetIsFav] = useState(false);
 
-    function addToFavorite(event: React.MouseEvent<HTMLButtonElement>) {
-        addFavorite(id)
+    if (!isAuth) return <button className='button-favorite' onClick={() => navigate('signup')}>Add to favorite</button>;
+
+    const emailRef = doc(db, "users", `${email}`);
+
+    getDocs(collection(db, "users"))
+        .then(res => res.docs.find(el => el.id === email))
+        .then(a => a?.data())
+        .then(list => {
+            const favoriteList = list?.favorites
+            SetIsFav(favoriteList.includes(id))
+        })
+
+    async function addToFavorite() {
+        await updateDoc(emailRef, {
+            favorites: arrayUnion(id)
+        });
         SetIsFav(true)
     }
 
-    function removeFromFavorite(event: React.MouseEvent<HTMLButtonElement>) {
-        removeFavorite(id)
+    async function removeFromFavorite() {
+        await updateDoc(emailRef, {
+            favorites: arrayRemove(id)
+        });
         SetIsFav(false)
     }
-
-    if (!isAuth) return <button className='button-favorite' onClick={() => navigate('signup')}>Add to favorite</button>
 
     let className = "button-favorite button-favorite--remove";
     let title = "Remove from favorite";

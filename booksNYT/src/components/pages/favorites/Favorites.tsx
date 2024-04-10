@@ -1,7 +1,10 @@
 import { useGetBooksFictionQuery } from "../../../app/api";
-import { useAppSelector } from "../../../hooks/redux-hook";
 import { List } from '../../list/List';
 import type { Data } from '../../../utils/DTO';
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
+import { useAuth } from "../../../hooks/use-auth";
+import { useEffect, useState } from "react";
 
 function filterObjectsById(objects: Data[] | undefined, arrStr: string[]): Data[] | undefined {
     const ids = arrStr.map(item => parseInt(item));
@@ -11,15 +14,23 @@ function filterObjectsById(objects: Data[] | undefined, arrStr: string[]): Data[
 }
 
 export function Favorites() {
-    const { favorites } = useAppSelector(state => state.favorites);
+    const { email } = useAuth();
     const { data: books, isLoading } = useGetBooksFictionQuery('');
-    const listBooks = filterObjectsById(books, favorites);
+    const [fav, setFav] = useState([]);
+    const emailRef = doc(db, "users", `${email}`);
+
+    useEffect(() => {
+        getDoc(emailRef)
+            .then(res => res.data())
+            .then(data => setFav(data?.favorites))
+    }, [setFav]);
+
+    const listBooks = filterObjectsById(books, fav);
+    if (fav.length === 0 || !listBooks) return <h1>No favorite books</h1>
 
     if (isLoading) {
         return <div>Loading...</div>;
     }
-
-    if (favorites.length === 0 || !listBooks) return <h1>No favorite books</h1>
 
     return (
         <>

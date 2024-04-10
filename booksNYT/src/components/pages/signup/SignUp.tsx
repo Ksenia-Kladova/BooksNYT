@@ -3,6 +3,8 @@ import { useAppDispatch } from '../../../hooks/redux-hook';
 import { setUser } from '../../../app/store/slices/userSlice';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
+import { setDoc, doc } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 
 export function SignUp() {
@@ -18,10 +20,18 @@ export function SignUp() {
                     id: user.uid,
                 }))
                 navigate('/', { replace: true });
+                console.log(user)
             })
-            .catch(console.error)
+            .catch(console.error);
+        try {
+            setDoc(doc(db, "users", email), {
+                history: [],
+                favorites: []
+            });
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
     }
-
 
     return (
         <div>

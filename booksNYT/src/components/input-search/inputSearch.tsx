@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Autocomplete } from '../autocomplete/Autocomplete';
 import { useDebounce } from '../../hooks/debounce';
-import { setQuery, addToHistory } from '../../app/store/slices/searchSlice';
+import { setQuery } from '../../app/store/slices/searchSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../firebase';
+import { useAuth } from '../../hooks/use-auth';
 
 export function InputSearch() {
     const [showText, setShowText] = useState(false);
@@ -12,18 +15,25 @@ export function InputSearch() {
     const query = useAppSelector(state => state.search.query);
     const debounce = useDebounce(query);
     const navigate = useNavigate();
+    const { isAuth, email } = useAuth();
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const emailRef = doc(db, "users", `${email}`);
+
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        dispatch(addToHistory(query));
         navigate(query ? `/search?title=${query}` : '/', { replace: true });
+        if (isAuth) {
+            await updateDoc(emailRef, {
+                history: arrayUnion(query)
+            })
+        }
     };
 
     const handleFocus = () => {
         setShowText(true);
     };
     const handleBlur = () => {
-        setShowText(false);
+        setTimeout(()=>setShowText(false), 500)
     };
 
     const handleInputChange = (event: { target: { value: string; }; }) => {
