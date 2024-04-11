@@ -25,12 +25,12 @@ export function Favorites() {
             .then(data => setFav(data?.favorites))
     }, [setFav]);
 
-    const listBooks = filterObjectsById(books, fav);
-    if (fav.length === 0 || !listBooks) return <h1>No favorite books</h1>
-
     if (isLoading) {
         return <div>Loading...</div>;
     }
+
+    const listBooks = filterObjectsById(books, fav);
+    if (fav.length === 0 || !listBooks) return <h1>No favorite books</h1>
 
     return (
         <>

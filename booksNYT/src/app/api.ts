@@ -110,6 +110,14 @@ export const booksAPI = createApi({
                 return books;
             }
         }),
+        getBooksCategory: builder.query<Data[], string>({
+            query: (category) => `/current/${category}.json?${import.meta.env.VITE_KEY}`,
+            transformResponse: (response: ResponseBooksFiction) => {
+                const books = response.results.books.map(dataFromDTO);
+
+                return books;
+            }
+        }),
         getSearchResult: builder.query<DataSearch[], string>({
             query: (title = '') => `/best-sellers/history.json?${title && `${title}`}&${import.meta.env.VITE_KEY}`,
             transformResponse: (response: ResponseSearch) => response.results.map(dataSearchFromDTO)
@@ -121,4 +129,4 @@ export const booksAPI = createApi({
     })
 });
 
-export const { useGetBooksFictionQuery, useGetSearchResultQuery, useGetSearchAutocompleteQuery } = booksAPI;
+export const { useGetBooksFictionQuery, useGetSearchResultQuery, useGetSearchAutocompleteQuery, useGetBooksCategoryQuery } = booksAPI;

@@ -7,7 +7,8 @@ type Props = {
     image: string,
     title: string,
     author: string,
-    publisher: string
+    publisher: string,
+    width: number
   }[]
 }
 
@@ -15,7 +16,7 @@ export function List({ list }: Props) {
   return (
     <ul className='list'>{
       list.map(item =>
-        <li className='list-item' key={item.id} >{
+        <li className='list-item' key={item.id} style={{ width: `${item.width}px` }}>{
           <Item children={item} />}
         </li>
       )}

@@ -2,6 +2,8 @@ import './Book.css';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { dataFromDTO } from '../../../utils/DTO';
+import { useBookCategory } from '../../select/SelectContext';
+import { ButtonFavorite } from '../../buttonFavorite/ButtonFavorite';
 
 type BookType = {
     id: number;
@@ -36,9 +38,10 @@ export function Book() {
         links: []
     };
     const [book, setBook] = useState<BookType>(bookState);
+    const { selectedCategory } = useBookCategory();
 
     useEffect(() => {
-        fetch(import.meta.env.VITE_FICTION)
+        fetch(`https://api.nytimes.com/svc/books/v3/lists/current/${selectedCategory.value}.json?${import.meta.env.VITE_KEY}`)
             .then(response => response.json())
             .then(data => {
                 const list = data.results.books;
@@ -49,7 +52,11 @@ export function Book() {
                 const obj = findObj(id!, arr);
                 setBook(obj!);
             });
-    }, [id]);
+    }, [id, selectedCategory]);
+
+    if (!id) {
+        return <h1>Error</h1>
+    }
 
     return (
         <div className='book__wrap'>
@@ -66,7 +73,7 @@ export function Book() {
                         }</li>
                     )}
                 </ul>
-                <button>Add to favorites</button>
+                <ButtonFavorite id={id} />
             </div>
         </div>)
 }

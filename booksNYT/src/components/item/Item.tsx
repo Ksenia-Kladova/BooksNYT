@@ -15,7 +15,7 @@ type Props = {
 export function Item({ children }: Props) {
     return (
         <>
-            <Link to={`/${children.id}`}>
+            <Link to={`/${children.id}`} className='link'>
                 <img src={children.image} alt='book cover' />
             </Link>
             <div className='wrap'>

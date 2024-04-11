@@ -1,11 +1,12 @@
 import { List } from '../../list/List'
 import { InputSearch } from '../../input-search/inputSearch'
-import './Home.css';
 import PropTypes from 'prop-types';
-import { useGetBooksFictionQuery } from '../../../app/api';
+import { useGetBooksCategoryQuery } from '../../../app/api';
+import { useBookCategory } from '../../select/SelectContext';
 
 export function Home() {
-    const { data: books, isLoading } = useGetBooksFictionQuery();
+    const { selectedCategory } = useBookCategory();
+    const { data: books, isLoading } = useGetBooksCategoryQuery(selectedCategory.value);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -15,7 +16,7 @@ export function Home() {
         <div>
             <InputSearch />
             <h1>Best Sellers</h1>
-            <h2>Fiction</h2>
+            <h2>{selectedCategory.label}</h2>
             <List list={books} />
         </div>
     )

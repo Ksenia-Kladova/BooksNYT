@@ -8,7 +8,8 @@ interface DataGetDTO {
     publisher: string,
     rank: number,
     title: string,
-    book_image: string
+    book_image: string,
+    book_image_width: number
 }
 
 export interface Data {
@@ -21,7 +22,8 @@ export interface Data {
     publisher: string,
     id: number,
     title: string,
-    image: string
+    image: string,
+    width: number
 }
 
 export const dataFromDTO: (dto: DataGetDTO) => Data = ({
@@ -32,6 +34,7 @@ export const dataFromDTO: (dto: DataGetDTO) => Data = ({
     rank,
     title,
     book_image,
+    book_image_width,
 }) => ({
     author: author,
     links: buy_links,
@@ -39,5 +42,6 @@ export const dataFromDTO: (dto: DataGetDTO) => Data = ({
     publisher: publisher,
     id: rank,
     title: title,
-    image: book_image
+    image: book_image,
+    width: book_image_width
 });
