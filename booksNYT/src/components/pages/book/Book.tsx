@@ -26,7 +26,7 @@ function findObj(id: string, arr: BookType[]) {
     return arr.find(book => book.id === parseInt(id, 10))
 }
 
-export function Book() {
+export default function Book() {
     const { id } = useParams<ParamType>();
     const bookState: BookType = {
         id: 0,

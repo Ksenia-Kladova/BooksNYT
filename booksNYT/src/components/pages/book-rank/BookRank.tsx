@@ -9,16 +9,12 @@ function processString(str: string): string {
     return substringAfterEquals.replace(/\+/g, ' ');
 }
 
-export function BookRank() {
+export default function BookRank() {
     const [searchParams] = useSearchParams();
     const search = searchParams + '';
-    const { data: books, isLoading } = useGetSearchResultQuery(search);
+    const { data: books } = useGetSearchResultQuery(search);
     const str: string = processString(search);
     const bookRank: DataSearch | undefined = books?.find(book => book.title === str);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
 
     if (!bookRank) {
         return (

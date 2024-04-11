@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
 
-
-export function SignUp() {
+export default function SignUp() {
     const dispatch = useAppDispatch();
     let navigate = useNavigate();
 

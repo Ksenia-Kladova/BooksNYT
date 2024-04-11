@@ -4,13 +4,9 @@ import PropTypes from 'prop-types';
 import { useGetBooksCategoryQuery } from '../../../app/api';
 import { useBookCategory } from '../../select/SelectContext';
 
-export function Home() {
+export default function Home() {
     const { selectedCategory } = useBookCategory();
-    const { data: books, isLoading } = useGetBooksCategoryQuery(selectedCategory.value);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+    const { data: books } = useGetBooksCategoryQuery(selectedCategory.value);
 
     return (
         <div>

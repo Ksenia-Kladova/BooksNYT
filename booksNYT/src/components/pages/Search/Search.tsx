@@ -3,16 +3,12 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useGetSearchResultQuery } from '../../../app/api';
 import { InputSearch } from '../../input-search/inputSearch'
 
-export function Search() {
+export default function Search() {
     const [searchParams] = useSearchParams();
     const search: string = searchParams + '';
-    const { data: books, isLoading } = useGetSearchResultQuery(search);
+    const { data: books } = useGetSearchResultQuery(search);
 
     if (search === '') return;
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
 
     if (books?.length === 0) {
         return (

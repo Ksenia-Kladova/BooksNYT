@@ -13,9 +13,9 @@ function filterObjectsById(objects: Data[] | undefined, arrStr: string[]): Data[
     return filterArr;
 }
 
-export function Favorites() {
+export default function Favorites() {
     const { email } = useAuth();
-    const { data: books, isLoading } = useGetBooksFictionQuery('');
+    const { data: books } = useGetBooksFictionQuery('');
     const [fav, setFav] = useState([]);
     const emailRef = doc(db, "users", `${email}`);
 
@@ -24,10 +24,6 @@ export function Favorites() {
             .then(res => res.data())
             .then(data => setFav(data?.favorites))
     }, [setFav]);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
 
     const listBooks = filterObjectsById(books, fav);
     if (fav.length === 0 || !listBooks) return <h1>No favorite books</h1>

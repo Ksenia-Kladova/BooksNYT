@@ -5,7 +5,7 @@ import { useAuth } from "../../../hooks/use-auth";
 import { db } from "../../../firebase";
 import { Link } from "react-router-dom";
 
-export function History() {
+export default function History() {
     const { email } = useAuth();
     const emailRef = doc(db, "users", `${email}`);
     const [history, setHistory] = useState([]);
