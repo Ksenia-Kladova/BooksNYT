@@ -5,8 +5,9 @@ import { useAppDispatch } from '../../hooks/redux-hook';
 import { removeUser } from '../../app/store/slices/userSlice';
 import { Select } from '../select/Select';
 import { SelectProvider } from '../select/SelectContext';
+import { Suspense } from 'react';
 
-export function Layout() {
+export default function Layout() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { isAuth, email } = useAuth();
@@ -24,22 +25,35 @@ export function Layout() {
                         <button onClick={() => dispatch(removeUser())} >Sign out</button>
                     </div>
                 </header>
-                <Outlet />
+
+                <Suspense fallback={<p>Loading...</p>}>
+
+                    <Outlet />
+                </Suspense>
+
             </>
         </SelectProvider>
-    ) : (<SelectProvider>
-        <>
-            <header className='header'>
-                <Link to={'/'}>Home</Link>
-                <Select />
-                <div className='header__wrap'>
-                    <span>Гость</span>
-                    <button onClick={() => navigate('signup')}>Sign up</button>
-                    <button onClick={() => navigate('login')}>Sign in</button>
-                </div>
-            </header>
-            <Outlet />
-        </>
-    </SelectProvider>
+    ) : (
+
+        <SelectProvider>
+            <>
+                <header className='header'>
+                    <Link to={'/'}>Home</Link>
+                    <Select />
+                    <div className='header__wrap'>
+                        <span>Гость</span>
+                        <button onClick={() => navigate('signup')}>Sign up</button>
+                        <button onClick={() => navigate('login')}>Sign in</button>
+                    </div>
+                </header>
+                <Suspense fallback={<p>Loading...</p>}>
+
+                    <Outlet />
+                </Suspense>
+
+            </>
+        </SelectProvider>
+
+
     )
 }

@@ -6,18 +6,19 @@ import { useBookCategory } from '../../select/SelectContext';
 
 export default function Home() {
     const { selectedCategory } = useBookCategory();
-    const { data: books } = useGetBooksCategoryQuery(selectedCategory.value);
+    const { data } = useGetBooksCategoryQuery(selectedCategory.value);
+    if (data === undefined) return (<p>Loading...</p>)
 
     return (
         <div>
             <InputSearch />
             <h1>Best Sellers</h1>
             <h2>{selectedCategory.label}</h2>
-            <List list={books} />
+            <List list={data} />
         </div>
     )
 }
 
 Home.propTypes = {
-    books: PropTypes.array
+    data: PropTypes.array
 };

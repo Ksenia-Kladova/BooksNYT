@@ -67,13 +67,13 @@ export default function Book() {
                 <p className='book__description'>Description: {book.description}</p>
                 <h4 className='book__subtitle'> Links to buy the book:</h4>
                 <ul className='book__links'>
-                    {book.links.map(item =>
-                        <li className='book__list-item' key={book.id} >{
+                    {book.links.map((item, index) =>
+                        <li className='book__list-item' key={book.index} >{
                             <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
                         }</li>
                     )}
                 </ul>
-                <ButtonFavorite id={id} />
+                <ButtonFavorite title={book.title} />
             </div>
         </div>)
 }

@@ -22,7 +22,7 @@ export function Item({ children }: Props) {
                 <h3 className='title'>{children.title}</h3>
                 <span className='author'>{children.author}</span>
                 <span className='publisher'>Publisher: {children.publisher}</span>
-                <ButtonFavorite id={`${children.id}`} />
+                <ButtonFavorite title={children.title} />
             </div>
         </>
     )
