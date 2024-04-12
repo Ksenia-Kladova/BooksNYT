@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './Layout/Layout';
 import { lazy } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorMassage } from './ErrorMessage'
 const Home = lazy(() => import('./pages/home/Home'));
 const Book = lazy(() => import('./pages/book/Book'));
 const SignUp = lazy(() => import('./pages/signup/SignUp'));
@@ -12,21 +14,23 @@ const BookRank = lazy(() => import('./pages/book-rank/BookRank'));
 
 export function RootRouter() {
   return (
-    <Routes>
-      <Route path='/' element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path=':id' element={<Book />} />
-        <Route path='signup' element={<SignUp />} />
-        <Route path='login' element={<LogIn />} />
-        <Route path='history' element={<History />} />
-        <Route path='favorite' element={<Favorites />} />
-        <Route path='search' element={<Search />}>
-          <Route path='?title=:title' id="search" element={<Search />} />
+    <ErrorBoundary fallbackRender={<ErrorMassage />}>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path=':id' element={<Book />} />
+          <Route path='signup' element={<SignUp />} />
+          <Route path='login' element={<LogIn />} />
+          <Route path='history' element={<History />} />
+          <Route path='favorite' element={<Favorites />} />
+          <Route path='search' element={<Search />}>
+            <Route path='?title=:title' id="search" element={<Search />} />
+          </Route>
+          <Route path='bookrank' element={<BookRank />}>
+            <Route path='?title=:title' element={<BookRank />} />
+          </Route>
         </Route>
-        <Route path='bookrank' element={<BookRank />}>
-          <Route path='?title=:title' element={<BookRank />} />
-        </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </ErrorBoundary>
   )
 }
