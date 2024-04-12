@@ -1,14 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './Layout/Layout';
-import Home from "./pages/home/Home";
-import Book from "./pages/book/Book.tsx";
-import Search from "./pages/Search/Search.tsx";
-import Favorites from "./pages/favorites/Favorites.tsx";
-import SignUp from './pages/signup/SignUp.tsx';
-import LogIn from "./pages/login/LogIn.tsx";
-import History from "./pages/history/History.tsx";
-import BookRank from "./pages/book-rank/BookRank.tsx"
-
+import { lazy } from 'react';
+const Home = lazy(() => import('./pages/home/Home'));
+const Book = lazy(() => import('./pages/book/Book'));
+const SignUp = lazy(() => import('./pages/signup/SignUp'));
+const LogIn = lazy(() => import('./pages/login/LogIn'));
+const Favorites = lazy(() => import('./pages/favorites/Favorites'));
+const History = lazy(() => import('./pages/history/History'));
+const Search = lazy(() => import('./pages/Search/Search'));
+const BookRank = lazy(() => import('./pages/book-rank/BookRank'));
 
 export function RootRouter() {
   return (

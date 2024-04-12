@@ -6,8 +6,22 @@ import { useBookCategory } from '../../select/SelectContext';
 
 export default function Home() {
     const { selectedCategory } = useBookCategory();
-    const { data } = useGetBooksCategoryQuery(selectedCategory.value);
-    if (data === undefined) return (<p>Loading...</p>)
+    const { data, isLoading } = useGetBooksCategoryQuery(selectedCategory.value);
+
+    // if (data === undefined) return (  <div>
+    //     <InputSearch />
+    //     <h1>Best Sellers</h1>
+    //     <p>Loading...</p>
+    // </div>)
+
+    if (data === undefined || isLoading) return (
+        <div>
+            <InputSearch />
+            <h1>Best Sellers</h1>
+            <h2>{selectedCategory.label}</h2>
+            <p>Loading...</p>
+        </div>
+    )
 
     return (
         <div>

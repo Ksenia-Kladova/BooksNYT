@@ -60,7 +60,7 @@ export default function Book() {
 
     return (
         <div className='book__wrap'>
-            <img src={book.image} alt='book cover' /><div className='book__content'>
+            <img src={book.image} loading="lazy" alt='book cover' /><div className='book__content'>
                 <h3 className='book__title'>{book.title}</h3>
                 <span className='book__author'>Author: {book.author}</span>
                 <span className='book__publisher'>Publisher: {book.publisher}</span>
@@ -68,7 +68,7 @@ export default function Book() {
                 <h4 className='book__subtitle'> Links to buy the book:</h4>
                 <ul className='book__links'>
                     {book.links.map((item, index) =>
-                        <li className='book__list-item' key={book.index} >{
+                        <li className='book__list-item' key={index} >{
                             <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
                         }</li>
                     )}

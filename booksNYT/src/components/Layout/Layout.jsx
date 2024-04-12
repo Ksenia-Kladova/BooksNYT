@@ -25,16 +25,12 @@ export default function Layout() {
                         <button onClick={() => dispatch(removeUser())} >Sign out</button>
                     </div>
                 </header>
-
                 <Suspense fallback={<p>Loading...</p>}>
-
                     <Outlet />
                 </Suspense>
-
             </>
         </SelectProvider>
     ) : (
-
         <SelectProvider>
             <>
                 <header className='header'>
@@ -47,13 +43,9 @@ export default function Layout() {
                     </div>
                 </header>
                 <Suspense fallback={<p>Loading...</p>}>
-
                     <Outlet />
                 </Suspense>
-
             </>
         </SelectProvider>
-
-
     )
 }
