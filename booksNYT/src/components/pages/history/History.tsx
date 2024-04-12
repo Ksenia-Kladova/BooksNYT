@@ -1,20 +1,19 @@
 import './History.css';
-import { useEffect, useState } from "react";
-import { arrayRemove, doc, getDoc, updateDoc } from "firebase/firestore";
+import { useState } from "react";
 import { useAuth } from "../../../hooks/use-auth";
-import { db } from "../../../firebase";
 import { Link } from "react-router-dom";
+import { useDatabaseHistory } from "../../../hooks/useDatabaseHistory";
+import { deleteDataItemHistory } from '../../../utils/database';
+
+type HistoryItem = string;
 
 export default function History() {
     const { email } = useAuth();
-    const emailRef = doc(db, "users", `${email}`);
-    const [history, setHistory] = useState([]);
+    const [history, setHistory] = useState<HistoryItem[]>([]);
 
-    useEffect(() => {
-        getDoc(emailRef)
-            .then(res => res.data())
-            .then(data => setHistory(data?.history))
-    }, [setHistory]);
+    useDatabaseHistory((dataUser) => {
+        setHistory(dataUser.history);
+    });
 
     return (
         <div>
@@ -24,9 +23,7 @@ export default function History() {
                     <li className="history__item" key={item} >{
                         <>
                             <Link to={`/search?title=${item}`}>{item}</Link>
-                            <button onClick={async () => {
-                                await updateDoc(emailRef, { history: arrayRemove(item) })
-                            }}>remove from history</button>
+                            <button onClick={() => deleteDataItemHistory(email, item)}>remove from history</button>
                         </>
                     }</li>
                 )}

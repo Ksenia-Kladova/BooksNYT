@@ -1,11 +1,13 @@
-import { useGetBooksCategoryQuery, useGetBooksFictionQuery } from "../../../app/api";
+import { useGetBooksCategoryQuery } from "../../../app/api";
 import { List } from '../../list/List';
 import type { Data } from '../../../utils/DTO';
-import { doc, getDoc } from "firebase/firestore";
+import { useState } from "react";
+import { useBookCategory } from "../../select/SelectContext";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { useAuth } from "../../../hooks/use-auth";
-import { useEffect, useState } from "react";
-import { useBookCategory } from "../../select/SelectContext";
+
+type State = string[]
 
 function filterObjectsByTitle(objects: Data[] | undefined, arrStr: string[]): Data[] | undefined {
     const filterArr = objects?.filter(obj => arrStr.includes(obj.title));
@@ -14,17 +16,15 @@ function filterObjectsByTitle(objects: Data[] | undefined, arrStr: string[]): Da
 }
 
 export default function Favorites() {
-    const { email } = useAuth();
     const { selectedCategory } = useBookCategory();
     const { data: books } = useGetBooksCategoryQuery(selectedCategory.value);
-    const [fav, setFav] = useState([]);
-    const emailRef = doc(db, "users", `${email}`);
+    const [fav, setFav] = useState<State>([]);
+    const { email } = useAuth();
 
-    useEffect(() => {
-        getDoc(emailRef)
-            .then(res => res.data())
-            .then(data => setFav(data?.favorites))
-    }, [setFav]);
+    const unsubscribe = onSnapshot(doc(db, "users", `${email}`), (doc) => {
+        const dataUser = doc.data();
+        setFav(dataUser && dataUser.favorites)
+    });
 
     if (books === undefined) return <p>Loading...</p>
     const listBooks = filterObjectsByTitle(books, fav);
@@ -35,6 +35,7 @@ export default function Favorites() {
             <p>No favorite books</p>
         </>
     )
+    unsubscribe();
 
     return (
         <>
