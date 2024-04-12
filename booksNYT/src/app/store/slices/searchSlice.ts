@@ -20,4 +20,6 @@ export const searchSlice = createSlice({
 });
 
 export const { setQuery } = searchSlice.actions;
+export const selectQuery = (state: { search: { query: string; }; }) => state.search.query;
+export const selectHistory = (state: { search: { history: string; }; }) => state.search.history;
 export default searchSlice.reducer;

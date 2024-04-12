@@ -19,7 +19,7 @@ export default function BookRank() {
     if (!bookRank) {
         return (
             <div>
-                <h1>Error </h1>
+                <h1>Loading...</h1>
             </div>
         )
     }

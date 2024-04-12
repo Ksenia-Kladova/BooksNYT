@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Autocomplete } from '../autocomplete/Autocomplete';
 import { useDebounce } from '../../hooks/debounce';
-import { setQuery } from '../../app/store/slices/searchSlice';
+import { selectQuery, setQuery } from '../../app/store/slices/searchSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
@@ -12,7 +12,7 @@ import { useAuth } from '../../hooks/use-auth';
 export function InputSearch() {
     const [showText, setShowText] = useState(false);
     const dispatch = useAppDispatch();
-    const query = useAppSelector(state => state.search.query);
+    const query = useAppSelector(selectQuery);
     const debounce = useDebounce(query);
     const navigate = useNavigate();
     const { isAuth, email } = useAuth();
@@ -33,7 +33,8 @@ export function InputSearch() {
         setShowText(true);
     };
     const handleBlur = () => {
-        setTimeout(()=>setShowText(false), 500)
+        const timer = setTimeout(() => setShowText(false), 500);
+        clearTimeout(timer);
     };
 
     const handleInputChange = (event: { target: { value: string; }; }) => {
