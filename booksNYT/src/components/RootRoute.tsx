@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './Layout/Layout';
 import { lazy } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -15,7 +15,7 @@ const BookRank = lazy(() => import('./pages/book-rank/BookRank'));
 
 export function RootRouter() {
   return (
-    <ErrorBoundary fallbackRender={<ErrorMassage />}>
+    <ErrorBoundary FallbackComponent={ErrorMassage}>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
