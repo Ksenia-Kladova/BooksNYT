@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Autocomplete } from '../autocomplete/Autocomplete';
 import { useDebounce } from '../../hooks/debounce';
 import { selectQuery, setQuery } from '../../app/store/slices/searchSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useAuth } from '../../hooks/use-auth';

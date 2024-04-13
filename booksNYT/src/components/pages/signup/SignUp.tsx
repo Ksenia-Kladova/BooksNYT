@@ -1,5 +1,5 @@
 import { Form } from "../../form/Form";
-import { useAppDispatch } from '../../../hooks/redux-hook';
+import { useAppDispatch } from '../../../app/hooks';
 import { setUser } from '../../../app/store/slices/userSlice';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'

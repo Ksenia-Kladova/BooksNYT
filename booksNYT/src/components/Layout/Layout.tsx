@@ -1,7 +1,7 @@
 import './Layout.css'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/use-auth';
-import { useAppDispatch } from '../../hooks/redux-hook';
+import { useAppDispatch } from '../../app/hooks';
 import { removeUser } from '../../app/store/slices/userSlice';
 import { Select } from '../select/Select';
 import { SelectProvider } from '../select/SelectContext';
