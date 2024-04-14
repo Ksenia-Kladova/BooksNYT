@@ -3,6 +3,7 @@ import { useAppDispatch } from '../../../app/hooks';
 import { setUser } from '../../../app/store/slices/userSlice';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
+import { setLoggedIn } from "../../../app/store/slices/authenticationSlice";
 
 
 export default function LogIn() {
@@ -19,7 +20,8 @@ export default function LogIn() {
                 }))
                 navigate('/', { replace: true });
             })
-            .catch(console.error)
+            .catch(console.error);
+        dispatch(setLoggedIn());
     }
 
     return (

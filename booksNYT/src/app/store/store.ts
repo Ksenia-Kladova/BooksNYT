@@ -1,16 +1,23 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { booksAPI } from '../api';
 import userReducer from './slices/userSlice';
 import searchReducer from './slices/searchSlice';
+import authenticationReducer from "./slices/authenticationSlice";
+import { localStorageMiddleware } from "./localStorageMiddleware";
+
+const rootReducer = combineReducers({
+    [booksAPI.reducerPath]: booksAPI.reducer,
+    user: userReducer,
+    search: searchReducer,
+    authentication: authenticationReducer,
+});
 
 export const store = configureStore({
-    reducer: {
-        [booksAPI.reducerPath]: booksAPI.reducer,
-        user: userReducer,
-        search: searchReducer,
-    },
-    middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().concat(booksAPI.middleware),
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware()
+            .concat(booksAPI.middleware)
+            .concat(localStorageMiddleware)
 });
 
 export type AppStore = typeof store

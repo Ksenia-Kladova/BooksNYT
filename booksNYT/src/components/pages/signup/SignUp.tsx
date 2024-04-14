@@ -5,6 +5,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { setLoggedIn } from "../../../app/store/slices/authenticationSlice";
 
 export default function SignUp() {
     const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ export default function SignUp() {
         } catch (e) {
             console.error("Error adding document: ", e);
         }
+        dispatch(setLoggedIn());
     }
 
     return (

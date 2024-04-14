@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
 
 type SelectedCategoryType = {
@@ -27,13 +27,20 @@ export const useBookCategory = (): SelectContextType => {
 
 export const SelectProvider = ({ children }: SelectProviderProps) => {
     const [selectedCategory, setSelectedCategory] = useState<SelectedCategoryType>({ value: "trade-fiction-paperback", label: "Fiction" });
-
     const updateSelectedCategory = ({ value, label }: SelectedCategoryType) => {
         setSelectedCategory({ value, label });
     };
 
+    const defaultProps = useMemo(
+        () => ({
+            selectedCategory,
+            updateSelectedCategory
+        }),
+        [selectedCategory],
+    );
+
     return (
-        <SelectContext.Provider value={{ selectedCategory, updateSelectedCategory }}>
+        <SelectContext.Provider value={defaultProps}>
             {children}
         </SelectContext.Provider>
     );

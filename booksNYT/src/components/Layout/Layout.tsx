@@ -6,11 +6,17 @@ import { removeUser } from '../../app/store/slices/userSlice';
 import { Select } from '../select/Select';
 import { SelectProvider } from '../select/SelectContext';
 import { Suspense } from 'react';
+import { setLoggedOut } from '../../app/store/slices/authenticationSlice';
 
 export default function Layout() {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
     const { isAuth, email } = useAuth();
+    const dispatch = useAppDispatch();
+
+    const handlerClick = () => {
+        dispatch(removeUser());
+        dispatch(setLoggedOut());
+    }
 
     return isAuth ? (
         <SelectProvider>
@@ -22,7 +28,7 @@ export default function Layout() {
                         <span>{email}</span>
                         <button onClick={() => navigate('favorite')}>Favorites</button>
                         <button onClick={() => navigate('history')}>History</button>
-                        <button onClick={() => dispatch(removeUser())} >Sign out</button>
+                        <button onClick={handlerClick} >Sign out</button>
                     </div>
                 </header>
                 <Suspense fallback={<p>Loading...</p>}>
