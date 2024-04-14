@@ -22,3 +22,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#hosting
+/y
+storage.rules
+functions
+firestore.rules
+firestore.rules
+firestore.indexes.json
+firebase.json
+.firebaserc
+database.rules.json
