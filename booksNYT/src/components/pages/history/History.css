@@ -14,3 +14,16 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.history__link {
+    padding: 0;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    transition: 0.2s color ease-in-out;
+}
+
+.history__link:hover {
+    color: rgb(97, 97, 153);
+}
+

@@ -9,7 +9,6 @@ interface UserDataHistory {
     history: Item[];
 }
 
-
 export const useDatabaseHistory = (callback: (data: UserDataHistory) => void) => {
     const { email } = useAuth();
     const docRef = doc(db, "users", `${email}`);
@@ -20,11 +19,5 @@ export const useDatabaseHistory = (callback: (data: UserDataHistory) => void) =>
             callback(data);
         });
         return () => unsubscribe();
-    }, [docRef, callback]);
+    });
 };
-
-
-
-
-
-

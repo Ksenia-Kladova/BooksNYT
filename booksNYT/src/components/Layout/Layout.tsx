@@ -1,24 +1,24 @@
 import './Layout.css'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/use-auth';
 import { useAppDispatch } from '../../app/hooks';
 import { removeUser } from '../../app/store/slices/userSlice';
 import { Select } from '../select/Select';
 import { SelectProvider } from '../select/SelectContext';
 import { Suspense } from 'react';
 import { setLoggedOut } from '../../app/store/slices/authenticationSlice';
+import { useCheckUser } from '../../utils/checkUser';
 
 export default function Layout() {
     const navigate = useNavigate();
-    const { isAuth, email } = useAuth();
     const dispatch = useAppDispatch();
+    const { login, email } = useCheckUser();
 
     const handlerClick = () => {
         dispatch(removeUser());
         dispatch(setLoggedOut());
     }
 
-    return isAuth ? (
+    return login ? (
         <SelectProvider>
             <>
                 <header className='header'>
