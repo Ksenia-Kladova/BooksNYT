@@ -6,12 +6,14 @@ import { Select } from '../select/Select';
 import { SelectProvider } from '../select/SelectContext';
 import { Suspense } from 'react';
 import { setLoggedOut } from '../../app/store/slices/authenticationSlice';
-import { useCheckUser } from '../../utils/checkUser';
+import { checkUser } from '../../utils/checkUser';
+import { useAuth } from '../../hooks/use-auth';
 
 export default function Layout() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const { login, email } = useCheckUser();
+    const { email } = useAuth();
+    const login = checkUser();
 
     const handlerClick = () => {
         dispatch(removeUser());
@@ -25,7 +27,7 @@ export default function Layout() {
                     <Link to={'/'}>Home</Link>
                     <Select />
                     <div className='header__wrap'>
-                        <span>{email}</span>
+                        <span>{email ? email : 'Loading...'}</span>
                         <button onClick={() => navigate('favorite')}>Favorites</button>
                         <button onClick={() => navigate('history')}>History</button>
                         <button onClick={handlerClick} >Sign out</button>
