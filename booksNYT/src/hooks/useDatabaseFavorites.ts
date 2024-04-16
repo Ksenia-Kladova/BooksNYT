@@ -9,7 +9,6 @@ interface UserDataFavorites {
     favorites: Item[];
 }
 
-
 export const useDatabaseFavorites = (callback: (data: UserDataFavorites) => void) => {
     const { email } = useAuth();
     const docRef = doc(db, "users", `${email}`);
@@ -20,5 +19,5 @@ export const useDatabaseFavorites = (callback: (data: UserDataFavorites) => void
             callback(data);
         });
         return () => unsubscribe();
-    }, [docRef, callback]);
+    });
 };

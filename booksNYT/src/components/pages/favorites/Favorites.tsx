@@ -1,11 +1,9 @@
-import { useGetBooksCategoryQuery } from "../../../app/api";
 import { List } from '../../list/List';
 import type { Data } from '../../../utils/DTO';
 import { useState } from "react";
 import { useBookCategory } from "../../select/SelectContext";
-import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../../../firebase";
-import { useAuth } from "../../../hooks/use-auth";
+import { useGetBooksCategoryQuery } from "../../../app/api";
+import { useDatabaseFavorites } from '../../../hooks/useDatabaseFavorites';
 
 type State = string[]
 
@@ -19,13 +17,10 @@ export default function Favorites() {
     const { selectedCategory } = useBookCategory();
     const { data: books } = useGetBooksCategoryQuery(selectedCategory.value);
     const [fav, setFav] = useState<State>([]);
-    const { email } = useAuth();
-
-    const unsubscribe = onSnapshot(doc(db, "users", `${email}`), (doc) => {
-        const dataUser = doc.data();
-        setFav(dataUser && dataUser.favorites)
+    useDatabaseFavorites((dataUser) => {
+        setFav(dataUser.favorites);
     });
-
+  
     if (books === undefined) return <p>Loading...</p>
     const listBooks = filterObjectsByTitle(books, fav);
     if (fav.length === 0 || listBooks?.length === 0 || !listBooks) return (
@@ -35,7 +30,6 @@ export default function Favorites() {
             <p>No favorite books</p>
         </>
     )
-    unsubscribe();
 
     return (
         <>
