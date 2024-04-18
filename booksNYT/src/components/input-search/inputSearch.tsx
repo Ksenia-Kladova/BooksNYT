@@ -29,12 +29,13 @@ export function InputSearch() {
         }
     };
 
+    let timeout: NodeJS.Timeout;
     const handleFocus = () => {
         setShowText(true);
+        clearTimeout(timeout);
     };
     const handleBlur = () => {
-        const timer = setTimeout(() => setShowText(false), 500);
-        clearTimeout(timer);
+        timeout = setTimeout(() => setShowText(false), 300);
     };
 
     const handleInputChange = (event: { target: { value: string; }; }) => {

@@ -18,13 +18,15 @@ export function ButtonFavorite({ title }: Props) {
 
     const emailRef = doc(db, "users", `${email}`);
 
-    getDocs(collection(db, "users"))
-        .then(res => res.docs.find(el => el.id === email))
-        .then(a => a?.data())
-        .then(list => {
-            const favoriteList = list?.favorites
-            SetIsFav(favoriteList.includes(title))
-        })
+    function unsubscribe() {
+        getDocs(collection(db, "users"))
+            .then(res => res.docs.find(el => el.id === email))
+            .then(a => a?.data())
+            .then(list => {
+                const favoriteList = list?.favorites
+                SetIsFav(favoriteList.includes(title))
+            })
+    }
 
     async function addToFavorite() {
         await updateDoc(emailRef, {
@@ -39,6 +41,8 @@ export function ButtonFavorite({ title }: Props) {
         });
         SetIsFav(false)
     }
+
+    unsubscribe()
 
     let className = "button-favorite button-favorite--remove";
     let titleButton = "Remove from favorite";

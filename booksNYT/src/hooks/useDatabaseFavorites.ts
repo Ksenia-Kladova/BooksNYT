@@ -14,10 +14,9 @@ export const useDatabaseFavorites = (callback: (data: UserDataFavorites) => void
     const docRef = doc(db, "users", `${email}`);
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(docRef, (snapshot) => {
+        onSnapshot(docRef, (snapshot) => {
             const data = snapshot.data() as UserDataFavorites;
             callback(data);
-        });
-        return () => unsubscribe();
-    });
+        })
+    }, []);
 };

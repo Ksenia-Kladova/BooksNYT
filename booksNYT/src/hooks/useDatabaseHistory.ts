@@ -1,7 +1,7 @@
 import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import { useAuth } from "./use-auth";
-import { db } from "../firebase";
+import { db, disableNetwork } from "../firebase";
 
 type Item = string;
 
@@ -14,10 +14,9 @@ export const useDatabaseHistory = (callback: (data: UserDataHistory) => void) =>
     const docRef = doc(db, "users", `${email}`);
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(docRef, (snapshot) => {
+        onSnapshot(docRef, (snapshot) => {
             const data = snapshot.data() as UserDataHistory;
             callback(data);
         });
-        return () => unsubscribe();
-    });
+    }, []);
 };

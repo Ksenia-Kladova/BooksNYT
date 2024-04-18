@@ -23,8 +23,22 @@ export default function History() {
         navigate(`/search?title=${title}`)
     }
 
+    if (history === undefined) return (
+        <>
+            <h1>History</h1>
+            <p>Loading...</p>
+        </>
+    )
+
+    if (history.length === 0) return (
+        <>
+            <h1>History</h1>
+            <p>No search history</p>
+        </>
+    )
+
     return (
-        <div>
+        <>
             <h1>History</h1>
             <ul className="history__list">
                 {history.map(item =>
@@ -36,6 +50,6 @@ export default function History() {
                     }</li>
                 )}
             </ul>
-        </div>
+        </>
     )
 }

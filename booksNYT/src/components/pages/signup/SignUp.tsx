@@ -20,7 +20,6 @@ export default function SignUp() {
                     id: user.uid,
                 }))
                 navigate('/', { replace: true });
-                console.log(user)
             })
             .catch(console.error);
         try {

@@ -16,6 +16,14 @@ export default function BookRank() {
     const str: string = processString(search);
     const bookRank: DataSearch | undefined = books?.find(book => book.title === str);
 
+    if (books && !bookRank) {
+        return (
+            <div>
+                <h1>No data</h1>
+            </div>
+        )
+    }
+
     if (!bookRank) {
         return (
             <div>
