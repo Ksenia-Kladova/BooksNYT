@@ -6,10 +6,13 @@ import { useNavigate } from 'react-router-dom'
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { setLoggedIn } from "../../../app/store/slices/authenticationSlice";
+import { Heading } from '@chakra-ui/react';
+import { useState } from "react";
 
 export default function SignUp() {
     const dispatch = useAppDispatch();
     let navigate = useNavigate();
+    const [error, setError] = useState('');
 
     const handleSignUp = (email: string, password: string) => {
         const auth = getAuth();
@@ -21,22 +24,25 @@ export default function SignUp() {
                 }))
                 navigate('/', { replace: true });
             })
-            .catch(console.error);
+            .catch((err) => {
+                setError(err.message)
+            });
         try {
             setDoc(doc(db, "users", email), {
                 history: [],
                 favorites: []
             });
         } catch (e) {
-            console.error("Error adding document: ", e);
+            setError(`${e}`);
         }
+
         dispatch(setLoggedIn());
     }
 
     return (
-        <div>
-            <h1>Sign up for BooksNYT</h1>
-            <Form title='Sign Up' handleClick={handleSignUp} />
-        </div>
+        <main className="main">
+            <Heading mb={3} fontFamily='fonts' size='lg'>Sign up for BooksNYT</Heading>
+            <Form title='Sign Up' handleClick={handleSignUp} error={error} />
+        </main>
     )
 }

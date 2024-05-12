@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useAuth } from '../../hooks/use-auth';
+import { SearchIcon } from '@chakra-ui/icons'
 
 export function InputSearch() {
     const [showText, setShowText] = useState(false);
@@ -34,6 +35,7 @@ export function InputSearch() {
         setShowText(true);
         clearTimeout(timeout);
     };
+    
     const handleBlur = () => {
         timeout = setTimeout(() => setShowText(false), 300);
     };
@@ -46,16 +48,20 @@ export function InputSearch() {
         <div className='InputSearch'>
             <div className='InputSearch__wrap'>
                 <form className='InputSearch__form' onSubmit={handleSubmit}>
-                    <input
-                        className='InputSearch__input'
-                        type="search"
-                        placeholder='Book title...'
-                        value={query}
-                        onChange={handleInputChange}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                    />
-                    <button className='InputSearch__button' type='submit' disabled={!query}>find out the rating history</button>
+                    <label className='InputSearch__label' htmlFor="input">Find out the rating history</label>
+                    <div className='InputSearch__wrapper'>
+                        <input
+                            className='InputSearch__input'
+                            id='input'
+                            type="search"
+                            placeholder='Book title...'
+                            value={query}
+                            onChange={handleInputChange}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                        />
+                        <button className='InputSearch__button btn' type='submit' disabled={!query}><SearchIcon /></button>
+                    </div>
                 </form>
                 {showText && <Autocomplete result={debounce} />}
             </div>

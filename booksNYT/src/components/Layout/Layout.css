@@ -1,21 +1,60 @@
 .header {
+    background-color: var(--chakra-colors-grayLight);
+}
+
+.header__wrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
     padding: 20px;
-    background-color: #efefefce
+    margin: 0 auto;
+    max-width: 1842px;
 }
 
-.header__wrap {
+.header__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 55%;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header__guest {
+    font-family: 'Cardo';
+}
+
+.header__box-btn {
     display: flex;
     gap: 10px;
 }
 
-.header__wrap button {
-    padding: 5px;
-    border-radius: 4px;
-    background-color: rgb(97, 95, 95);
-    color: #fff;
-    cursor: pointer;
+@media screen and (width < 768px) {
+    .header__wrapper {
+        display: contents;
+    }
+
+    .header__wrap {
+        flex-wrap: wrap;
+    }
+
+    .select__content {
+        justify-content: center;
+        order: 3;
+        flex: 1 1 100%;
+    }
+
+    .select__wrap {
+        margin: 0 auto;
+        max-width: 300px;
+    }
+
+    .header__nav-btn {
+        width: 100%;
+    }
 }

@@ -4,12 +4,30 @@
     background-color: rgb(132, 176, 223);
     color: black;
     cursor: pointer;
+    transition: 0.2s background-color ease-in-out;
 }
 
 .button-favorite--add {
     background-color: rgb(132, 176, 223);
+    transition: 0.2s background-color ease-in-out;
 }
 
 .button-favorite--remove {
     background-color: rgb(218, 177, 177);
+    transition: 0.2s background-color ease-in-out;
+}
+
+.button-favorite:focus {
+    outline: none;
+    background-color: rgb(93, 143, 195);
+}
+
+.button-favorite--add:focus, .button-favorite--add:hover, .button-favorite--add:active {
+    outline: none;
+    background-color: rgb(93, 143, 195);
+}
+
+.button-favorite--remove:focus, .button-favorite--remove:hover, .button-favorite--remove:active {
+    outline: none;
+    background-color: rgb(212, 147, 147);
 }

@@ -6,6 +6,8 @@ import { useDatabaseHistory } from "../../../hooks/useDatabaseHistory";
 import { deleteDataItemHistory } from '../../../utils/database';
 import { useAppDispatch } from '../../../app/hooks';
 import { setQuery } from '../../../app/store/slices/searchSlice';
+import { Heading, Spinner } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons'
 
 type HistoryItem = string;
 
@@ -24,32 +26,32 @@ export default function History() {
     }
 
     if (history === undefined) return (
-        <>
-            <h1>History</h1>
-            <p>Loading...</p>
-        </>
+        <main className='main'>
+            <Heading as='h1' mb={2} fontFamily='fonts'>History</Heading>
+            <Spinner />
+        </main>
     )
 
     if (history.length === 0) return (
-        <>
-            <h1>History</h1>
+        <main className='main'>
+            <Heading as='h1' mb={2} fontFamily='fonts'>History</Heading>
             <p>No search history</p>
-        </>
+        </main>
     )
 
     return (
-        <>
-            <h1>History</h1>
+        <main className='main'>
+            <Heading as='h1' mb={2} fontFamily='fonts'>History</Heading>
             <ul className="history__list">
                 {history.map(item =>
                     <li className="history__item" key={item} >{
                         <>
                             <button className='history__link' onClick={() => handlerClick(item)}>{item}</button>
-                            <button onClick={() => deleteDataItemHistory(email, item)}>remove from history</button>
+                            <button className='history__btn' onClick={() => deleteDataItemHistory(email, item)}><DeleteIcon /></button>
                         </>
                     }</li>
                 )}
             </ul>
-        </>
+        </main>
     )
 }

@@ -1,16 +1,27 @@
 .InputSearch {
-    padding: 20px;
+    padding: 5px 20px 20px;
     width: 100%;
-    background-color: #efefefce;
+    background-color: var(--chakra-colors-grayLight);
 }
 
 .InputSearch__wrap {
     position: relative;
     margin: 0 auto;
     width: 45%;
+    max-width: 550px;
 }
 
 .InputSearch__form {
+    text-align: left;
+}
+
+.InputSearch__label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.InputSearch__wrapper {
     display: flex;
     border: 1px solid black;
     border-radius: 4px;
@@ -31,10 +42,17 @@
 }
 
 .InputSearch__button {
-    padding: 5px;
+    display: block;
+    padding: 5px 10px;
     border: none;
-    background-color: rgb(97, 95, 95);
+    background-color: var(--chakra-colors-gray);
     color: #fff;
     overflow: hidden;
     cursor: pointer;
+}
+
+@media screen and (width < 768px) {
+    .InputSearch__wrap {
+        width: 100%;
+    }
 }

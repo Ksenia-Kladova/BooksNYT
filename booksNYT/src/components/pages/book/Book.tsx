@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { dataFromDTO } from '../../../utils/DTO';
 import { useBookCategory } from '../../select/SelectContext';
 import { ButtonFavorite } from '../../buttonFavorite/ButtonFavorite';
+import { Heading, Image, Spinner } from "@chakra-ui/react";
+import { Link } from '@chakra-ui/react'
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 type BookType = {
     id: number;
@@ -39,6 +42,7 @@ export default function Book() {
     };
     const [book, setBook] = useState<BookType>(bookState);
     const { selectedCategory } = useBookCategory();
+    const [isLinksVisible, setIsLinksVisible] = useState(false);
 
     useEffect(() => {
         fetch(`https://api.nytimes.com/svc/books/v3/lists/current/${selectedCategory.value}.json?${import.meta.env.VITE_KEY}`)
@@ -54,22 +58,29 @@ export default function Book() {
             });
     }, [id, selectedCategory]);
 
+    const handleClick = () => {
+        setIsLinksVisible(!isLinksVisible);
+    };
+
+    console.log(isLinksVisible);
+
     if (!id) {
         return <h1>Error</h1>
     }
 
     return (
         <div className='book__wrap'>
-            <img src={book.image} loading="lazy" alt='book cover' /><div className='book__content'>
-                <h3 className='book__title'>{book.title}</h3>
+            {book.image ? <Image src={book.image} alt='book cover' /> : <Spinner size='xl' />}
+            <div className='book__content'>
+                <Heading as='h1' size={['sm', 'md', 'lg']} fontFamily='Cardo' className='book__title'>{book.title}</Heading>
                 <span className='book__author'>Author: {book.author}</span>
                 <span className='book__publisher'>Publisher: {book.publisher}</span>
                 <p className='book__description'>Description: {book.description}</p>
-                <h4 className='book__subtitle'> Links to buy the book:</h4>
-                <ul className='book__links'>
+                <Heading as='h4' size='sm' fontFamily='Cardo' className='book__subtitle' onClick={handleClick}> Links to buy the book </Heading>
+                <ul className={isLinksVisible ? 'book__links book__links--active' : 'book__links'}>
                     {book.links.map((item, index) =>
                         <li className='book__list-item' key={index} >{
-                            <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
+                            <Link href={item.url} color='gray' target="_blank" rel="noopener noreferrer" isExternal>{item.name} <ExternalLinkIcon mx='2px' /></Link>
                         }</li>
                     )}
                 </ul>

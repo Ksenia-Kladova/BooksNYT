@@ -1,8 +1,9 @@
 import type { ChangeEvent } from 'react';
 import './Select.css';
 import { useBookCategory } from './SelectContext';
+import { Select } from '@chakra-ui/react'
 
-export function Select() {
+export function SelectCategory() {
     const { updateSelectedCategory } = useBookCategory();
 
     const handlerChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -18,13 +19,15 @@ export function Select() {
     { value: "business-books", title: "Business" }]
 
     return (
-        <div>
-            <label htmlFor="categories" className='select__label'>Categories</label>
-            <select id='categories' onChange={handlerChange} className='select' defaultValue={"trade-fiction-paperback"}>
-                {options.map((option, index) => (
-                    <option key={index} value={option.value} label={option.title} >{option.title}</option>)
-                )}
-            </select>
+        <div className='select__content'>
+            <div className='select__wrap'>
+                <label htmlFor="categories" className='select__label'>Categories</label>
+                <Select bg='white' size='sm' borderRadius='4px' id='categories' onChange={handlerChange} defaultValue={"trade-fiction-paperback"}>
+                    {options.map((option, index) => (
+                        <option key={index} value={option.value} label={option.title} >{option.title}</option>)
+                    )}
+                </Select>
+            </div>
         </div>
     )
 }

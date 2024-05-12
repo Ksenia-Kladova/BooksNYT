@@ -5,7 +5,6 @@
     padding: 0;
     margin: 0 auto;
     width: fit-content;
-    list-style: none;
 }
 
 .history__item {
@@ -19,11 +18,33 @@
     padding: 0;
     border: none;
     background-color: #fff;
+    font-size: 18px;
     cursor: pointer;
     transition: 0.2s color ease-in-out;
 }
 
-.history__link:hover {
-    color: rgb(97, 97, 153);
+.history__link:focus {
+    outline: none;
 }
 
+.history__link:hover, .history__link:active {
+    color: #615f5f;
+}
+
+.history__btn {
+    display: flex;
+}
+
+.history__btn:focus {
+    outline: none;
+}
+
+.history__btn svg g {
+    transition: 0.2s fill ease-in-out;
+}
+
+.history__btn:focus svg g,
+.history__btn:hover svg g,
+.history__btn:active svg g {
+    fill: #615f5f;
+}

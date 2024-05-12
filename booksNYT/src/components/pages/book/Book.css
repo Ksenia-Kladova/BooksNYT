@@ -26,13 +26,44 @@
 
 .book__subtitle {
     margin: 0;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .book__links {
+    display: block;
     list-style: none;
+    margin-bottom: 10px;
+}
+
+.book__list-item {
+    margin-left: 10px;
 }
 
 .book__list-item:not(:last-child) {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .book__wrap img {
+        align-self: start;
+        width: 200px;
+        height: auto;
+    }
+
+    .book__content h4 {
+        border: 1px solid var(--chakra-colors-gray);
+        border-radius: 4px;
+        padding: 4px 6px;
+        width: fit-content;
+        color: var(--chakra-colors-gray);
+        cursor: pointer;
+    }
+
+    .book__links {
+        display: none;
+    }
+
+    .book__links--active {
+        display: block;
+    }
 }

@@ -4,11 +4,13 @@ import { setUser } from '../../../app/store/slices/userSlice';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom'
 import { setLoggedIn } from "../../../app/store/slices/authenticationSlice";
-
+import { Heading } from '@chakra-ui/react';
+import { useState } from "react";
 
 export default function LogIn() {
     const dispatch = useAppDispatch();
     let navigate = useNavigate();
+    const [error, setError] = useState('');
 
     const handleLogin = (email: string, password: string) => {
         const auth = getAuth();
@@ -20,14 +22,16 @@ export default function LogIn() {
                 }))
                 navigate('/', { replace: true });
             })
-            .catch(console.error);
+            .catch((err) => {
+                setError(err.message)
+            });
         dispatch(setLoggedIn());
     }
 
     return (
-        <div>
-            <h1>Sign in to BooksNYT</h1>
-            <Form title='Sign In' handleClick={handleLogin} />
-        </div>
+        <main className="main">
+            <Heading as='h1' mb={3} fontFamily='fonts' size='lg'>Sign in to BooksNYT</Heading>
+            <Form title='Sign In' handleClick={handleLogin} error={error} />
+        </main>
     )
 }

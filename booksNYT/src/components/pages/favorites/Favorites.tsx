@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useBookCategory } from "../../select/SelectContext";
 import { useGetBooksCategoryQuery } from "../../../app/api";
 import { useDatabaseFavorites } from '../../../hooks/useDatabaseFavorites';
+import { Heading, Spinner } from '@chakra-ui/react';
 
 type State = string[]
 
@@ -20,22 +21,24 @@ export default function Favorites() {
     useDatabaseFavorites((dataUser) => {
         setFav(dataUser.favorites);
     });
-  
-    if (books === undefined) return <p>Loading...</p>
+
+    if (books === undefined) return <main className='main'><Spinner /> </main >;
+
     const listBooks = filterObjectsByTitle(books, fav);
-    if (fav.length === 0 || listBooks?.length === 0 || !listBooks) return (
-        <>
-            <h1>Favorite</h1>
-            <h2>{selectedCategory.label}</h2>
+
+    if (fav.length === 0) return (
+        <main className='main'>
+            <Heading as='h1' mb={2} fontFamily='fonts'>Favorite</Heading>
+            <Heading as='h2' fontFamily='fonts' size='lg' fontWeight={400}>{selectedCategory.label}</Heading>
             <p>No favorite books</p>
-        </>
+        </main>
     )
 
     return (
-        <>
-            <h1>Favorite</h1>
-            <h2>{selectedCategory.label}</h2>
-            <List list={listBooks} />
-        </>
+        <main className='main'>
+            <Heading as='h1' mb={2} fontFamily='fonts'>Favorite</Heading>
+            <Heading as='h2' fontFamily='fonts' size='lg' fontWeight={400}>{selectedCategory.label}</Heading>
+            {listBooks ? <List list={listBooks} /> : <Spinner />}
+        </main>
     )
 }

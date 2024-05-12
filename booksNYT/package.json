@@ -15,9 +15,15 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@fontsource/cardo": "^5.0.13",
     "@reduxjs/toolkit": "^2.0.1",
     "@types/react-redux": "^7.1.33",
     "firebase": "^10.10.0",
+    "framer-motion": "^11.1.8",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.2.0",
