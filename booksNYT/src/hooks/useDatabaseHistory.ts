@@ -1,7 +1,7 @@
 import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import { useAuth } from "./use-auth";
-import { db, disableNetwork } from "../firebase";
+import { db } from "../firebase";
 
 type Item = string;
 
