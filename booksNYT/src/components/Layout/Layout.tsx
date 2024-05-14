@@ -32,7 +32,7 @@ export default function Layout() {
                             <SelectCategory />
                         </div>
                         <nav className='header__nav header__nav--login'>
-                            <span>{email ? email : <Spinner size='sm' />}</span>
+                            <span>{email ? email : 'Loading...'}</span>
                             <Show breakpoint='(max-width: 576px)'>
                                 <Menu >
                                     <MenuButton
@@ -42,15 +42,15 @@ export default function Layout() {
                                         variant='outline'
                                         size='sm'
                                     />
-                                    <MenuList minWidth='110px'>
-                                        <MenuItem >
-                                            <Button className='header__nav-btn btn' size='sm' color='white' bg='gray' onClick={() => navigate('favorite')}>Favorites</Button>
+                                    <MenuList minWidth='110px' pl={3} pr={3}>
+                                        <MenuItem className='header__nav-btn btn' color='white' bg='gray' onClick={() => navigate('favorite')}>
+                                            Favorites
                                         </MenuItem>
-                                        <MenuItem  >
-                                            <Button className='header__nav-btn btn' size='sm' color='white' bg='gray' onClick={() => navigate('history')}>History</Button>
+                                        <MenuItem className='header__nav-btn btn' color='white' bg='gray' onClick={() => navigate('history')}>
+                                            History
                                         </MenuItem>
-                                        <MenuItem >
-                                            <Button className='header__nav-btn btn' size='sm' color='white' bg='gray' onClick={handlerClick} >Sign out</Button>
+                                        <MenuItem className='header__nav-btn btn' color='white' bg='gray' onClick={handlerClick} >
+                                            Sign out
                                         </MenuItem>
                                     </MenuList>
                                 </Menu>
@@ -65,7 +65,7 @@ export default function Layout() {
                         </nav>
                     </div>
                 </header>
-                <Suspense fallback={<Spinner size='xl' />}>
+                <Suspense fallback={<Spinner size='xl' mt={3} />}>
                     <Outlet />
                 </Suspense>
             </>
@@ -80,13 +80,13 @@ export default function Layout() {
                             <SelectCategory />
                         </div>
                         <nav className='header__nav'>
-                            <span className='header__guest'>Гость</span>
+                            <span className='header__guest'>Guest</span>
                             <Button className='btn' size='sm' color='white' bg='gray' onClick={() => navigate('signup')}>Sign up</Button>
                             <Button className='btn' size='sm' color='white' bg='gray' onClick={() => navigate('login')}>Sign in</Button>
                         </nav>
                     </div>
                 </header>
-                <Suspense fallback={<Spinner size='xl' />}>
+                <Suspense fallback={<Spinner size='xl' mt={3} />}>
                     <Outlet />
                 </Suspense>
             </>

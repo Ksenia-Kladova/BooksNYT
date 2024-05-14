@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    padding: 20px;
 }
 
 .book__content {
@@ -27,6 +26,10 @@
 .book__subtitle {
     margin: 0;
     margin-bottom: 5px;
+}
+
+.book__subtitle-svg {
+    display: none;
 }
 
 .book__links {
@@ -54,9 +57,14 @@
         border: 1px solid var(--chakra-colors-gray);
         border-radius: 4px;
         padding: 4px 6px;
+        margin-bottom: 10px;
         width: fit-content;
         color: var(--chakra-colors-gray);
         cursor: pointer;
+    }
+
+    .book__subtitle-svg {
+        display: inline-block;
     }
 
     .book__links {
@@ -65,5 +73,29 @@
 
     .book__links--active {
         display: block;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .book__wrap {
+        gap: 10px;
+    }
+
+    .book__title {
+        margin-bottom: 5px;
+    }
+
+    .book__subtitle {
+        margin-bottom: 5px;
+        font-size: 12px;
+    }
+
+    .book__description, .book__links, .book__author, .book__publisher {
+        margin-bottom: 5px;
+        font-size: 12px;
+    }
+
+    .book__wrap img {
+        width: 120px;
     }
 }

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { setLoggedIn } from "../../../app/store/slices/authenticationSlice";
 import { Heading } from '@chakra-ui/react';
 import { useState } from "react";
+import type { AuthError } from "firebase/auth";
 
 export default function LogIn() {
     const dispatch = useAppDispatch();
@@ -22,8 +23,8 @@ export default function LogIn() {
                 }))
                 navigate('/', { replace: true });
             })
-            .catch((err) => {
-                setError(err.message)
+            .catch((err: AuthError) => {
+                setError(err.code);
             });
         dispatch(setLoggedIn());
     }

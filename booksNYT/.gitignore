@@ -33,3 +33,4 @@ firestore.indexes.json
 firebase.json
 .firebaserc
 database.rules.json
+.firebase

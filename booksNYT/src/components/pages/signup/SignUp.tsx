@@ -8,6 +8,7 @@ import { db } from "../../../firebase";
 import { setLoggedIn } from "../../../app/store/slices/authenticationSlice";
 import { Heading } from '@chakra-ui/react';
 import { useState } from "react";
+import type { AuthError } from "firebase/auth";
 
 export default function SignUp() {
     const dispatch = useAppDispatch();
@@ -24,8 +25,8 @@ export default function SignUp() {
                 }))
                 navigate('/', { replace: true });
             })
-            .catch((err) => {
-                setError(err.message)
+            .catch((err: AuthError) => {
+                setError(err.code)
             });
         try {
             setDoc(doc(db, "users", email), {

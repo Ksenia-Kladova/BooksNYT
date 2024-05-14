@@ -6,7 +6,7 @@ import { useBookCategory } from '../../select/SelectContext';
 import { ButtonFavorite } from '../../buttonFavorite/ButtonFavorite';
 import { Heading, Image, Spinner } from "@chakra-ui/react";
 import { Link } from '@chakra-ui/react'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { ExternalLinkIcon, ChevronDownIcon } from '@chakra-ui/icons'
 
 type BookType = {
     id: number;
@@ -69,14 +69,14 @@ export default function Book() {
     }
 
     return (
-        <div className='book__wrap'>
+        <main className='book__wrap main'>
             {book.image ? <Image src={book.image} alt='book cover' /> : <Spinner size='xl' />}
             <div className='book__content'>
                 <Heading as='h1' size={['sm', 'md', 'lg']} fontFamily='Cardo' className='book__title'>{book.title}</Heading>
                 <span className='book__author'>Author: {book.author}</span>
                 <span className='book__publisher'>Publisher: {book.publisher}</span>
                 <p className='book__description'>Description: {book.description}</p>
-                <Heading as='h4' size='sm' fontFamily='Cardo' className='book__subtitle' onClick={handleClick}> Links to buy the book </Heading>
+                <Heading as='h4' size='sm' fontFamily='Cardo' className='book__subtitle' onClick={handleClick}> Links to buy the book <ChevronDownIcon className='book__subtitle-svg' /></Heading>
                 <ul className={isLinksVisible ? 'book__links book__links--active' : 'book__links'}>
                     {book.links.map((item, index) =>
                         <li className='book__list-item' key={index} >{
@@ -86,6 +86,6 @@ export default function Book() {
                 </ul>
                 <ButtonFavorite title={book.title} />
             </div>
-        </div>)
+        </main>)
 }
 
